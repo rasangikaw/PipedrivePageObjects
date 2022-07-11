@@ -47,18 +47,18 @@ public class DealsPage extends BasePageObject {
     By btnCancel = By.xpath("//button[@data-test='cancel-edit-pipeline']/span[text()='Cancel']");
     By lnkFilters = By.xpath("//span[text()='Filters']");
     By lblDealInStage = By.xpath("//div[text()='{1}']//ancestor::div[contains(@data-test , 'stage')]//div[@data-test='deals-list']//span[text()='{2}']");
-    By lblDealsEmptyMessage = By.xpath("//div[@data-test='no-deals-content']//div[text()='No deals found to match your criteria']");
-
+    By commonDealCard = By.xpath("//*[@data-test='pipeline-deal-tile']");
+    
     public DealsPage(WebDriver driver) {
         super(driver);
     }
 
-    public boolean isDealsPageEmpty() throws Exception {
+   public boolean isDealsCardsDisplayed() throws Exception {
         try {
-            logger.log(Level.INFO, "Start | isDealsPageEmpty()");
-            return driver.findElement(lblDealsEmptyMessage).isDisplayed();
+            logger.log(Level.INFO, "Start | isDealsCardsDisplayed()");
+            return isElementDisplayedAfterWaiting(commonDealCard, 5000);
         } catch (Exception e) {
-            logger.log(Level.INFO, "Fail | isDealsPageEmpty()");
+            logger.log(Level.INFO, "Fail | isDealsCardsDisplayed()");
             throw e;
         }
     }
