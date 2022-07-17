@@ -1,7 +1,5 @@
 name: Deploy Page Object Artifacts
 
- -uses:-ssettings-xml
-
 on:
   push:
     branches: [ "main" ]
@@ -59,4 +57,12 @@ jobs:
      run: mvn clean deploy
      env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+   - name: trigger Functions workflow
+     uses: mvasigh/dispatch-action@main
+     with:
+          token: ${{ secrets.GH_TOKEN }}
+          repo:  PipedriveFunctions
+          owner: rasangikaw
+          event_type: startFunctions_Workflow
    needs: [build, package]
